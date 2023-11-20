@@ -11,7 +11,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 3.19.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.1.2 |
 | <a name="module_lambda_function"></a> [lambda\_function](#module\_lambda\_function) | ../.. | n/a |
 
 ## Resources
