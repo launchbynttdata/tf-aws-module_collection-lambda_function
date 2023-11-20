@@ -173,7 +173,7 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | <a name="input_function_name"></a> [function\_name](#input\_function\_name) | A unique name for your Lambda Function | `string` | `""` | no |
 | <a name="input_handler"></a> [handler](#input\_handler) | Lambda Function entrypoint in your code | `string` | `"index.lambda_handler"` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | Lambda Function runtime | `string` | `"python3.9"` | no |
-| <a name="input_description"></a> [description](#input\_description) | Description of your Lambda Function (or Layer) | `string` | `""` | no |
+| <a name="input_description"></a> [description](#input\_description) | Description of your Lambda Function | `string` | `""` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | Amount of memory in MB your Lambda Function can use at runtime. Valid value between 128 MB to 10,240 MB (10 GB), in 64 MB increments. | `number` | `128` | no |
 | <a name="input_ephemeral_storage_size"></a> [ephemeral\_storage\_size](#input\_ephemeral\_storage\_size) | Amount of ephemeral storage (/tmp) in MB your Lambda Function can use at runtime. Valid value between 512 MB to 10,240 MB (10 GB). | `number` | `512` | no |
 | <a name="input_publish"></a> [publish](#input\_publish) | Whether to publish creation/change as new Lambda Function Version. | `bool` | `true` | no |
@@ -203,6 +203,7 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | <a name="input_lambda_schedule_expression"></a> [lambda\_schedule\_expression](#input\_lambda\_schedule\_expression) | Schedule expression to determine lambda frequency. Supports one-time schedule and recurring schedules, see https://docs.aws.amazon.com/scheduler/latest/UserGuide/schedule-types.html for specifics. | `string` | `null` | no |
 | <a name="input_lambda_schedule_timezone"></a> [lambda\_schedule\_timezone](#input\_lambda\_schedule\_timezone) | IANA Timezone for the schedule expression. Defaults to America/New\_York. | `string` | `"America/New_York"` | no |
 | <a name="input_lambda_schedule_payload"></a> [lambda\_schedule\_payload](#input\_lambda\_schedule\_payload) | An optional payload to use when invoking the lambda function through EventBridge | `map(any)` | `{}` | no |
+| <a name="input_lambda_layers"></a> [lambda\_layers](#input\_lambda\_layers) | (Optional) List of ARNs of Lambda Layers to include with this function, up to a maximum of 5. | `list(string)` | `null` | no |
 
 ## Outputs
 

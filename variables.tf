@@ -308,7 +308,7 @@ variable "runtime" {
 }
 
 variable "description" {
-  description = "Description of your Lambda Function (or Layer)"
+  description = "Description of your Lambda Function"
   type        = string
   default     = ""
 }
@@ -497,4 +497,10 @@ variable "lambda_schedule_payload" {
   description = "An optional payload to use when invoking the lambda function through EventBridge"
   type        = map(any)
   default     = {}
+}
+
+variable "lambda_layers" {
+  description = "(Optional) List of ARNs of Lambda Layers to include with this function, up to a maximum of 5."
+  type        = list(string)
+  default     = null
 }

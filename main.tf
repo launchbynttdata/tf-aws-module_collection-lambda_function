@@ -67,6 +67,8 @@ module "lambda_function" {
   vpc_security_group_ids = var.vpc_id != null ? [module.security_group[0].security_group_id] : []
   vpc_subnet_ids         = var.vpc_subnet_ids
 
+  layers = var.lambda_layers
+
   tags = merge(var.tags, { resource_name = module.resource_names["function"].standard })
 }
 
