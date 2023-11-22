@@ -204,6 +204,7 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | <a name="input_lambda_schedule_timezone"></a> [lambda\_schedule\_timezone](#input\_lambda\_schedule\_timezone) | IANA Timezone for the schedule expression. Defaults to America/New\_York. | `string` | `"America/New_York"` | no |
 | <a name="input_lambda_schedule_payload"></a> [lambda\_schedule\_payload](#input\_lambda\_schedule\_payload) | An optional payload to use when invoking the lambda function through EventBridge | `map(any)` | `{}` | no |
 | <a name="input_lambda_layers"></a> [lambda\_layers](#input\_lambda\_layers) | (Optional) List of ARNs of Lambda Layers to include with this function, up to a maximum of 5. | `list(string)` | `null` | no |
+| <a name="input_architectures"></a> [architectures](#input\_architectures) | (Optional) Instruction set architecture for your Lambda function. Valid architectures are x86\_64 (default) and arm64. | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 
 ## Outputs
 

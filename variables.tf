@@ -504,3 +504,9 @@ variable "lambda_layers" {
   type        = list(string)
   default     = null
 }
+
+variable "architectures" {
+  description = "(Optional) Instruction set architecture for your Lambda function. Valid architectures are x86_64 (default) and arm64."
+  type        = list(string)
+  default     = ["x86_64"]
+}

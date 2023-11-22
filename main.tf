@@ -23,6 +23,7 @@ module "lambda_function" {
   description    = var.description
   handler        = var.handler
   runtime        = var.runtime
+  architectures  = var.architectures
   publish        = var.publish
   create_package = var.create_package
 
