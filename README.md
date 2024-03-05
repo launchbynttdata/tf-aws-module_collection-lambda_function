@@ -112,7 +112,7 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.22.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.39.1 |
 
 ## Modules
 
@@ -205,6 +205,8 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | <a name="input_lambda_schedule_payload"></a> [lambda\_schedule\_payload](#input\_lambda\_schedule\_payload) | An optional payload to use when invoking the lambda function through EventBridge | `map(any)` | `{}` | no |
 | <a name="input_lambda_layers"></a> [lambda\_layers](#input\_lambda\_layers) | (Optional) List of ARNs of Lambda Layers to include with this function, up to a maximum of 5. | `list(string)` | `null` | no |
 | <a name="input_architectures"></a> [architectures](#input\_architectures) | (Optional) Instruction set architecture for your Lambda function. Valid architectures are x86\_64 (default) and arm64. | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
+| <a name="input_attach_tracing_policy"></a> [attach\_tracing\_policy](#input\_attach\_tracing\_policy) | Controls whether X-Ray tracing policy should be added to the IAM role for this Lambda function. | `bool` | `false` | no |
+| <a name="input_tracing_mode"></a> [tracing\_mode](#input\_tracing\_mode) | (Optional) Tracing mode for your Lambda function. Valid tracing modes are `PassThrough` and `Active`. | `string` | `null` | no |
 
 ## Outputs
 

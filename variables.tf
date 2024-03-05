@@ -510,3 +510,19 @@ variable "architectures" {
   type        = list(string)
   default     = ["x86_64"]
 }
+
+##########################
+# Observability settings
+##########################
+
+variable "attach_tracing_policy" {
+  description = "Controls whether X-Ray tracing policy should be added to the IAM role for this Lambda function."
+  type        = bool
+  default     = false
+}
+
+variable "tracing_mode" {
+  description = "(Optional) Tracing mode for your Lambda function. Valid tracing modes are `PassThrough` and `Active`."
+  type        = string
+  default     = null
+}

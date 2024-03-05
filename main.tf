@@ -70,6 +70,9 @@ module "lambda_function" {
 
   layers = var.lambda_layers
 
+  attach_tracing_policy = var.attach_tracing_policy
+  tracing_mode          = var.tracing_mode
+
   tags = merge(var.tags, { resource_name = module.resource_names["function"].standard })
 }
 

@@ -8,6 +8,9 @@ components/
 .idea
 !examples/*.tfvars
 
+# We don't want to commit the test run lock files
+.terraform.lock.hcl
+
 # Local .terraform directories
 **/.terraform/*
 
