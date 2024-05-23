@@ -35,6 +35,7 @@ module "lambda_function" {
 
   create_alb                 = false
   create_dns                 = false
+  make_vpc                   = true
   create_schedule            = var.create_schedule
   lambda_schedule_expression = var.lambda_schedule_expression
 
@@ -42,4 +43,6 @@ module "lambda_function" {
   logical_product_service = var.logical_product_service
 
   tags = var.tags
+
+  depends_on = [module.vpc]
 }

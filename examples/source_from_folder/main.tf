@@ -35,6 +35,7 @@ module "lambda_function" {
 
   create_alb = false
   create_dns = false
+  make_vpc   = true
 
   logical_product_family  = var.logical_product_family
   logical_product_service = var.logical_product_service

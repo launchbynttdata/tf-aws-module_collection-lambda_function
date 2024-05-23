@@ -131,8 +131,3 @@ output "record_fqdns" {
   value       = [for dns_record in module.dns_record : dns_record.record_fqdns]
   description = "FQDNs of the Route53 private DNS record(if enabled)"
 }
-
-output "record_names" {
-  value       = [for dns_record in module.dns_record : dns_record.record_names]
-  description = "Record names of the Route53 private DNS record (if enabled)"
-}
