@@ -17,3 +17,6 @@ security_group = {
   egress_rules        = ["all-all"]
   egress_cidr_blocks  = ["0.0.0.0/0"]
 }
+
+logical_product_family  = var.logical_product_family
+logical_product_service = var.logical_product_service

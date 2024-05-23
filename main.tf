@@ -77,17 +77,19 @@ module "lambda_function" {
 }
 
 module "resource_names" {
-  source = "git::https://github.com/nexient-llc/tf-module-resource_name.git?ref=0.1.0"
+  source = "git::https://github.com/launchbynttdata/tf-launch-module_library-resource_name.git?ref=1.0.0"
 
   for_each = var.resource_names_map
 
-  logical_product_name = var.naming_prefix
-  region               = join("", split("-", var.region))
-  class_env            = var.environment
-  cloud_resource_type  = each.value.name
-  instance_env         = var.environment_number
-  instance_resource    = var.resource_number
-  maximum_length       = each.value.max_length
+  logical_product_family  = var.logical_product_family
+  logical_product_service = var.logical_product_service
+
+  region              = join("", split("-", var.region))
+  class_env           = var.environment
+  cloud_resource_type = each.value.name
+  instance_env        = var.environment_number
+  instance_resource   = var.resource_number
+  maximum_length      = each.value.max_length
 }
 
 module "security_group" {
@@ -193,20 +195,21 @@ module "s3_bucket" {
 }
 
 module "dns_record" {
-  source = "git::https://github.com/nexient-llc/tf-aws-wrapper_module-dns_record.git?ref=0.1.0"
+  source = "git::https://github.com/launchbynttdata/tf-aws-module_primitive-dns_record.git?ref=1.0.0"
 
   count = var.create_dns ? 1 : 0
 
-  zone_id      = var.zone_id
-  private_zone = false
-  records = [{
-    name = module.resource_names["function"].standard
-    type = "A"
-    alias = {
-      name    = module.alb[0].lb_dns_name
-      zone_id = module.alb[0].lb_zone_id
+  zone_id = var.zone_id
+  records = {
+    "${module.resource_names["function"].standard}" = {
+      name = module.resource_names["function"].standard
+      type = "A"
+      alias = {
+        name    = module.alb[0].lb_dns_name
+        zone_id = module.alb[0].lb_zone_id
+      }
     }
-  }]
+  }
 }
 
 module "acm" {

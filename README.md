@@ -1,4 +1,4 @@
-# tf-aws-wrapper_module-lambda_function
+# tf-aws-module_collection-lambda_function
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
@@ -106,25 +106,25 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0, <= 1.5.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.39.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.50.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_lambda_function"></a> [lambda\_function](#module\_lambda\_function) | terraform-aws-modules/lambda/aws | ~> 5.2.0 |
-| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | git::https://github.com/nexient-llc/tf-module-resource_name.git | 0.1.0 |
+| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | git::https://github.com/launchbynttdata/tf-launch-module_library-resource_name.git | 1.0.0 |
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | terraform-aws-modules/security-group/aws | ~> 4.17.1 |
 | <a name="module_alb"></a> [alb](#module\_alb) | terraform-aws-modules/alb/aws | ~> 8.6.0 |
 | <a name="module_kms_key"></a> [kms\_key](#module\_kms\_key) | terraform-aws-modules/kms/aws | ~> 1.5.0 |
 | <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | terraform-aws-modules/s3-bucket/aws | ~> 3.10.1 |
-| <a name="module_dns_record"></a> [dns\_record](#module\_dns\_record) | git::https://github.com/nexient-llc/tf-aws-wrapper_module-dns_record.git | 0.1.0 |
+| <a name="module_dns_record"></a> [dns\_record](#module\_dns\_record) | git::https://github.com/launchbynttdata/tf-aws-module_primitive-dns_record.git | 1.0.0 |
 | <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 4.3.2 |
 | <a name="module_eventbridge"></a> [eventbridge](#module\_eventbridge) | terraform-aws-modules/eventbridge/aws | n/a |
 
@@ -143,10 +143,11 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | <a name="input_zip_file_path"></a> [zip\_file\_path](#input\_zip\_file\_path) | Path of the source zip file with respect to module root | `string` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment in which the resource should be provisioned like dev, qa, prod etc. | `string` | `"dev"` | no |
 | <a name="input_environment_number"></a> [environment\_number](#input\_environment\_number) | The environment count for the respective environment. Defaults to 000. Increments in value of 1 | `string` | `"000"` | no |
-| <a name="input_naming_prefix"></a> [naming\_prefix](#input\_naming\_prefix) | Prefix for the provisioned resources. | `string` | `"platform"` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region in which the infra needs to be provisioned | `string` | `"us-east-2"` | no |
 | <a name="input_resource_number"></a> [resource\_number](#input\_resource\_number) | The resource count for the respective resource. Defaults to 000. Increments in value of 1 | `string` | `"000"` | no |
-| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | A map of key to resource\_name that will be used by tf-module-resource\_name to generate resource names | <pre>map(object(<br>    {<br>      name       = string<br>      max_length = optional(number, 60)<br>    }<br>  ))</pre> | <pre>{<br>  "acm": {<br>    "max_length": 31,<br>    "name": "acm"<br>  },<br>  "alb": {<br>    "max_length": 31,<br>    "name": "alb"<br>  },<br>  "alb_http_listener": {<br>    "max_length": 60,<br>    "name": "http"<br>  },<br>  "alb_tg": {<br>    "max_length": 31,<br>    "name": "albtg"<br>  },<br>  "eventbridge_role": {<br>    "max_length": 60,<br>    "name": "eb-role"<br>  },<br>  "function": {<br>    "max_length": 60,<br>    "name": "fn"<br>  },<br>  "s3_kms": {<br>    "max_length": 60,<br>    "name": "s3kms"<br>  },<br>  "s3_logs": {<br>    "max_length": 63,<br>    "name": "logs"<br>  },<br>  "security_group": {<br>    "max_length": 60,<br>    "name": "sg"<br>  }<br>}</pre> | no |
+| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | (Required) Name of the product family for which the resource is created.<br>    Example: org\_name, department\_name. | `string` | n/a | yes |
+| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | (Required) Name of the product service for which the resource is created.<br>    For example, backend, frontend, middleware etc. | `string` | n/a | yes |
+| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | A map of key to resource\_name that will be used by tf-launch-module\_library-resource\_name to generate resource names | <pre>map(object(<br>    {<br>      name       = string<br>      max_length = optional(number, 60)<br>    }<br>  ))</pre> | <pre>{<br>  "acm": {<br>    "max_length": 31,<br>    "name": "acm"<br>  },<br>  "alb": {<br>    "max_length": 31,<br>    "name": "alb"<br>  },<br>  "alb_http_listener": {<br>    "max_length": 60,<br>    "name": "http"<br>  },<br>  "alb_tg": {<br>    "max_length": 31,<br>    "name": "albtg"<br>  },<br>  "eventbridge_role": {<br>    "max_length": 60,<br>    "name": "eb-role"<br>  },<br>  "function": {<br>    "max_length": 60,<br>    "name": "fn"<br>  },<br>  "s3_kms": {<br>    "max_length": 60,<br>    "name": "s3kms"<br>  },<br>  "s3_logs": {<br>    "max_length": 63,<br>    "name": "logs"<br>  },<br>  "security_group": {<br>    "max_length": 60,<br>    "name": "sg"<br>  }<br>}</pre> | no |
 | <a name="input_create_alb"></a> [create\_alb](#input\_create\_alb) | Set false if you do not want to create an ALB with the MQ | `bool` | `true` | no |
 | <a name="input_is_internal"></a> [is\_internal](#input\_is\_internal) | Whether this load balancer is internal or public facing | `bool` | `true` | no |
 | <a name="input_http_tcp_listeners"></a> [http\_tcp\_listeners](#input\_http\_tcp\_listeners) | Ingress rules to be attached to ECS Service Security Group | <pre>list(object({<br>    port               = number<br>    protocol           = string<br>    target_group_index = number<br>    action_type        = optional(string)<br>    redirect           = optional(map(string))<br>  }))</pre> | <pre>[<br>  {<br>    "action_type": "redirect",<br>    "port": 80,<br>    "protocol": "HTTP",<br>    "redirect": {<br>      "port": "443",<br>      "protocol": "HTTPS",<br>      "status_code": "HTTP_301"<br>    },<br>    "target_group_index": 0<br>  }<br>]</pre> | no |
@@ -154,7 +155,7 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 | <a name="input_target_groups"></a> [target\_groups](#input\_target\_groups) | Egress rules to be attached to ECS Service Security Group | <pre>list(object({<br>    name        = string<br>    target_type = string<br>  }))</pre> | `[]` | no |
 | <a name="input_use_https_listeners"></a> [use\_https\_listeners](#input\_use\_https\_listeners) | Set true if you want to use HTTPS and a private cert | `bool` | `true` | no |
 | <a name="input_create_dns"></a> [create\_dns](#input\_create\_dns) | Set false if you do not want to create a DNS record for the ALBs | `bool` | `true` | no |
-| <a name="input_records"></a> [records](#input\_records) | List of DNS records - A, CNAME etc. to be created.<br>  name: name of the record to be created<br>  type: type or record - A, CNAME etc.<br>  ttl: time to live<br>  health\_check\_id: id of the health check<br>  records: IP Addresses, CIDRs or other DNS record names<br>  alias: Alias names for A and CNAME records<br>    Valid `alias` attributes are `name`, `zone_id` and `evaluate_target_health`.<br>    `alias` conflicts with `ttl` and `records` and vice-versa" | <pre>list(object({<br>    name            = optional(string)<br>    type            = optional(string)<br>    ttl             = optional(number)<br>    health_check_id = optional(string)<br>    records         = optional(list(string))<br>    alias           = optional(map(string))<br>  }))</pre> | <pre>[<br>  {<br>    "type": "A"<br>  }<br>]</pre> | no |
+| <a name="input_records"></a> [records](#input\_records) | Records and their properties | <pre>map(object({<br>    type            = string<br>    ttl             = optional(number)<br>    name            = string<br>    records         = optional(list(string))<br>    set_identifier  = optional(string)<br>    health_check_id = optional(string)<br>    alias = optional(object({<br>      name                   = string<br>      zone_id                = string<br>      evaluate_target_health = bool<br>    }))<br>    cidr_routing_policy = optional(object({<br>      collection_id = string<br>      location_name = string<br>    }))<br>    failover_routing_policy = optional(object({<br>      type = string<br>    }))<br>    geolocation_routing_policy = optional(object({<br>      continent   = string<br>      country     = string<br>      subdivision = optional(string)<br>    }))<br>    latency_routing_policy = optional(object({<br>      region = string<br>    }))<br>    multivalue_answer_routing_policy = optional(bool)<br>    weighted_routing_policy = optional(object({<br>      weight = number<br>    }))<br>    allow_overwrite = optional(bool)<br>  }))</pre> | `{}` | no |
 | <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Zone ID of the hosted zone. Conflicts with zone\_name | `string` | `null` | no |
 | <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | DNS Hosted zone in this record for this cluster will be created. Required when create\_custom\_dns\_record=true | `string` | `"test10534.demo.local"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID of the VPC where infrastructure will be provisioned | `string` | `null` | no |

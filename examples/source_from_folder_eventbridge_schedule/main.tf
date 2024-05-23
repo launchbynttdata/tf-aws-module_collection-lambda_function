@@ -38,5 +38,8 @@ module "lambda_function" {
   create_schedule            = var.create_schedule
   lambda_schedule_expression = var.lambda_schedule_expression
 
+  logical_product_family  = var.logical_product_family
+  logical_product_service = var.logical_product_service
+
   tags = var.tags
 }

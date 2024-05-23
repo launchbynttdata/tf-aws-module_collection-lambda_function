@@ -42,12 +42,6 @@ variable "environment_number" {
   default     = "000"
 }
 
-variable "naming_prefix" {
-  description = "Prefix for the provisioned resources."
-  type        = string
-  default     = "platform"
-}
-
 variable "region" {
   description = "AWS Region in which the infra needs to be provisioned"
   default     = "us-east-2"
@@ -58,8 +52,37 @@ variable "resource_number" {
   default     = "000"
 }
 
+
+variable "logical_product_family" {
+  type        = string
+  description = <<EOF
+    (Required) Name of the product family for which the resource is created.
+    Example: org_name, department_name.
+  EOF
+  nullable    = false
+
+  validation {
+    condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_family))
+    error_message = "The variable must contain letters, numbers, -, _, and .."
+  }
+}
+
+variable "logical_product_service" {
+  type        = string
+  description = <<EOF
+    (Required) Name of the product service for which the resource is created.
+    For example, backend, frontend, middleware etc.
+  EOF
+  nullable    = false
+
+  validation {
+    condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_service))
+    error_message = "The variable must contain letters, numbers, -, _, and .."
+  }
+}
+
 variable "resource_names_map" {
-  description = "A map of key to resource_name that will be used by tf-module-resource_name to generate resource names"
+  description = "A map of key to resource_name that will be used by tf-launch-module_library-resource_name to generate resource names"
   type = map(object(
     {
       name       = string
@@ -172,28 +195,41 @@ variable "create_dns" {
 }
 
 variable "records" {
-  description = <<EOT
-  List of DNS records - A, CNAME etc. to be created.
-  name: name of the record to be created
-  type: type or record - A, CNAME etc.
-  ttl: time to live
-  health_check_id: id of the health check
-  records: IP Addresses, CIDRs or other DNS record names
-  alias: Alias names for A and CNAME records
-    Valid `alias` attributes are `name`, `zone_id` and `evaluate_target_health`.
-    `alias` conflicts with `ttl` and `records` and vice-versa"
-  EOT
-  type = list(object({
-    name            = optional(string)
-    type            = optional(string)
+  type = map(object({
+    type            = string
     ttl             = optional(number)
-    health_check_id = optional(string)
+    name            = string
     records         = optional(list(string))
-    alias           = optional(map(string))
+    set_identifier  = optional(string)
+    health_check_id = optional(string)
+    alias = optional(object({
+      name                   = string
+      zone_id                = string
+      evaluate_target_health = bool
+    }))
+    cidr_routing_policy = optional(object({
+      collection_id = string
+      location_name = string
+    }))
+    failover_routing_policy = optional(object({
+      type = string
+    }))
+    geolocation_routing_policy = optional(object({
+      continent   = string
+      country     = string
+      subdivision = optional(string)
+    }))
+    latency_routing_policy = optional(object({
+      region = string
+    }))
+    multivalue_answer_routing_policy = optional(bool)
+    weighted_routing_policy = optional(object({
+      weight = number
+    }))
+    allow_overwrite = optional(bool)
   }))
-  default = [{
-    type = "A"
-  }]
+  description = "Records and their properties"
+  default     = {}
 }
 
 variable "zone_id" {

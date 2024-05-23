@@ -37,5 +37,8 @@ module "lambda_function" {
   create_alb = false
   create_dns = false
 
+  logical_product_family  = var.logical_product_family
+  logical_product_service = var.logical_product_service
+
   tags = var.tags
 }
