@@ -63,3 +63,6 @@ azure_env.sh
 
 # VS Code
 .vscode/
+
+# Ignore all transient directories
+examples/source_from_folder/builds
