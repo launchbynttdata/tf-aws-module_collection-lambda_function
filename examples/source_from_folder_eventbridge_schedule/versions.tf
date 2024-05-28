@@ -10,14 +10,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-output "function_name" {
-  value = module.lambda_function.lambda_function_name
-}
+terraform {
+  required_version = ">= 1.5.0, <= 1.5.5"
 
-output "function_arn" {
-  value = module.lambda_function.lambda_function_arn
-}
-
-output "function_url" {
-  value = module.lambda_function.lambda_function_url
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
 }

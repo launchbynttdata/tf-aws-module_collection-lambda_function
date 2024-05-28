@@ -24,6 +24,7 @@ module "lambda_function" {
   zip_file_path       = var.zip_file_path
   zone_id             = var.zone_id
   zone_name           = var.zone_name
+  make_vpc            = false
 
   logical_product_family  = var.logical_product_family
   logical_product_service = var.logical_product_service

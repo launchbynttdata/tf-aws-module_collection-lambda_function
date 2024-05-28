@@ -10,9 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
-
 # Module to generate the AWS resource names
 module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
@@ -32,7 +29,7 @@ module "lambda_function" {
 
   # Local Source
   source_path            = var.create_package ? var.source_path : null
-  local_existing_package = var.zip_file_path != null && var.store_on_s3 == false ? "${var.zip_file_path}" : null
+  local_existing_package = var.zip_file_path != null && var.store_on_s3 == false ? var.zip_file_path : null
 
   # Store On S3
   s3_bucket = var.store_on_s3 ? var.s3_bucket : null
@@ -65,7 +62,7 @@ module "lambda_function" {
 
   allowed_triggers = local.allowed_triggers
 
-  vpc_security_group_ids = var.vpc_id != null ? [module.security_group[0].security_group_id] : []
+  vpc_security_group_ids = var.make_vpc ? [module.security_group[0].security_group_id] : []
   vpc_subnet_ids         = var.vpc_subnet_ids
 
   layers = var.lambda_layers
@@ -95,7 +92,7 @@ module "resource_names" {
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.17.1"
-  count   = var.vpc_id != null ? 1 : 0
+  count   = var.make_vpc ? 1 : 0
 
   vpc_id                   = var.vpc_id
   name                     = module.resource_names["security_group"].standard
@@ -121,7 +118,7 @@ module "alb" {
   create_security_group = false
   internal              = var.is_internal
   load_balancer_type    = var.load_balancer_type
-  security_groups       = [module.security_group[0].security_group_id]
+  security_groups       = var.make_vpc ? [module.security_group[0].security_group_id] : []
   subnets               = var.vpc_subnet_ids
   vpc_id                = var.vpc_id
 
@@ -201,12 +198,13 @@ module "dns_record" {
 
   zone_id = var.zone_id
   records = {
-    "${module.resource_names["function"].standard}" = {
+    (module.resource_names["function"].standard) = {
       name = module.resource_names["function"].standard
       type = "A"
       alias = {
-        name    = module.alb[0].lb_dns_name
-        zone_id = module.alb[0].lb_zone_id
+        name                   = module.alb[0].lb_dns_name
+        zone_id                = module.alb[0].lb_zone_id
+        evaluate_target_health = false
       }
     }
   }
@@ -225,7 +223,9 @@ module "acm" {
 }
 
 module "eventbridge" {
-  source     = "terraform-aws-modules/eventbridge/aws"
+  source  = "terraform-aws-modules/eventbridge/aws"
+  version = "~> 3.3.1"
+
   count      = var.create_schedule ? 1 : 0
   create_bus = false
 

@@ -12,12 +12,7 @@
 
 locals {
 
-  default_tags = {
-    provisioner = "Terraform"
-  }
-
   s3_source_key_handler = var.s3_source_key == null ? null : replace(var.s3_source_key, ".zip", "")
   handler               = local.s3_source_key_handler == null ? var.handler : "${local.s3_source_key_handler}.${var.handler}"
 
-  tags = merge(local.default_tags, var.tags)
 }
