@@ -21,3 +21,15 @@ output "function_arn" {
 output "function_url" {
   value = module.lambda_function.lambda_function_url
 }
+
+output "security_group_id" {
+  value = module.lambda_function.security_group_ids[0]
+}
+
+output "security_group_name" {
+  value = module.lambda_function.security_group_names[0]
+}
+
+output "security_group_arn" {
+  value = module.lambda_function.security_group_arns[0]
+}

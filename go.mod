@@ -5,6 +5,7 @@ go 1.21.7
 require (
 	github.com/aws/aws-sdk-go-v2 v1.27.0
 	github.com/aws/aws-sdk-go-v2/config v1.27.16
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.146.0
 	github.com/aws/aws-sdk-go-v2/service/lambda v1.54.4
 	github.com/gruntwork-io/terratest v0.46.15
 	github.com/launchbynttdata/lcaf-component-terratest v1.0.4

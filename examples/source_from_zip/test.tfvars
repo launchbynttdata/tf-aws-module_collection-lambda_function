@@ -1,4 +1,4 @@
-zip_file_path = "examples/source_from_zip/test_lambda_fn.zip"
+zip_file_path = "./test_lambda_fn.zip"
 
 target_groups = [
   {

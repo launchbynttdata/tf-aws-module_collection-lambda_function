@@ -228,4 +228,7 @@ No resources.
 | <a name="output_local_filename"></a> [local\_filename](#output\_local\_filename) | The filename of zip archive deployed (if deployment was from local) |
 | <a name="output_s3_object"></a> [s3\_object](#output\_s3\_object) | The map with S3 object data of zip archive deployed (if deployment was from S3) |
 | <a name="output_record_fqdns"></a> [record\_fqdns](#output\_record\_fqdns) | FQDNs of the Route53 private DNS record(if enabled) |
+| <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | The ID of the security group |
+| <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | The name of the security group |
+| <a name="output_security_group_arns"></a> [security\_group\_arns](#output\_security\_group\_arns) | The ARN of the security group |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -131,3 +131,19 @@ output "record_fqdns" {
   value       = [for dns_record in module.dns_record : dns_record.record_fqdns]
   description = "FQDNs of the Route53 private DNS record(if enabled)"
 }
+
+### Security Group outputs
+output "security_group_ids" {
+  value       = module.security_group[*].security_group_id
+  description = "The ID of the security group"
+}
+
+output "security_group_names" {
+  value       = module.security_group[*].security_group_name
+  description = "The name of the security group"
+}
+
+output "security_group_arns" {
+  value       = module.security_group[*].security_group_arn
+  description = "The ARN of the security group"
+}
