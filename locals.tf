@@ -31,9 +31,6 @@ locals {
 
   domainfqn = "${module.lambda_function.lambda_function_name}.${var.zone_name}"
 
-  zip_folder         = var.zip_file_path != null ? basename(var.zip_file_path) : null
-  zip_handler_folder = local.zip_folder == null ? null : replace(local.zip_folder, ".zip", "")
-
   elb_trigger = {
     AllowExecutionFromELB = {
       service    = "elasticloadbalancing"

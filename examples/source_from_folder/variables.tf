@@ -12,6 +12,7 @@
 
 variable "availability_zones" {
   description = "List of availability zones for the VPC"
+  type        = list(string)
   default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
 }
 
@@ -23,6 +24,7 @@ variable "create_package" {
 
 variable "private_subnets" {
   description = "List of private subnet cidrs"
+  type        = list(string)
   default     = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
 }
 
@@ -32,6 +34,7 @@ variable "source_path" {
 }
 
 variable "vpc_cidr" {
+  type    = string
   default = "10.1.0.0/16"
 }
 
@@ -42,6 +45,7 @@ variable "vpc_name" {
 }
 
 variable "tags" {
+  type    = map(string)
   default = {}
 }
 
@@ -54,16 +58,19 @@ variable "environment" {
 
 variable "environment_number" {
   description = "The environment count for the respective environment. Defaults to 000. Increments in value of 1"
+  type        = string
   default     = "000"
 }
 
 variable "region" {
   description = "AWS Region in which the infra needs to be provisioned"
+  type        = string
   default     = "us-east-2"
 }
 
 variable "resource_number" {
   description = "The resource count for the respective resource. Defaults to 000. Increments in value of 1"
+  type        = string
   default     = "000"
 }
 

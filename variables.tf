@@ -39,16 +39,19 @@ variable "environment" {
 
 variable "environment_number" {
   description = "The environment count for the respective environment. Defaults to 000. Increments in value of 1"
+  type        = string
   default     = "000"
 }
 
 variable "region" {
   description = "AWS Region in which the infra needs to be provisioned"
+  type        = string
   default     = "us-east-2"
 }
 
 variable "resource_number" {
   description = "The resource count for the respective resource. Defaults to 000. Increments in value of 1"
+  type        = string
   default     = "000"
 }
 
@@ -194,44 +197,6 @@ variable "create_dns" {
   description = "Set false if you do not want to create a DNS record for the ALBs"
 }
 
-variable "records" {
-  type = map(object({
-    type            = string
-    ttl             = optional(number)
-    name            = string
-    records         = optional(list(string))
-    set_identifier  = optional(string)
-    health_check_id = optional(string)
-    alias = optional(object({
-      name                   = string
-      zone_id                = string
-      evaluate_target_health = bool
-    }))
-    cidr_routing_policy = optional(object({
-      collection_id = string
-      location_name = string
-    }))
-    failover_routing_policy = optional(object({
-      type = string
-    }))
-    geolocation_routing_policy = optional(object({
-      continent   = string
-      country     = string
-      subdivision = optional(string)
-    }))
-    latency_routing_policy = optional(object({
-      region = string
-    }))
-    multivalue_answer_routing_policy = optional(bool)
-    weighted_routing_policy = optional(object({
-      weight = number
-    }))
-    allow_overwrite = optional(bool)
-  }))
-  description = "Records and their properties"
-  default     = {}
-}
-
 variable "zone_id" {
   description = "Zone ID of the hosted zone. Conflicts with zone_name"
   type        = string
@@ -325,12 +290,6 @@ variable "lambda_at_edge" {
   default     = false
 }
 
-variable "function_name" {
-  description = "A unique name for your Lambda Function"
-  type        = string
-  default     = ""
-}
-
 variable "handler" {
   description = "Lambda Function entrypoint in your code"
   type        = string
@@ -387,12 +346,6 @@ variable "environment_variables" {
 
 variable "vpc_subnet_ids" {
   description = "List of subnet ids when Lambda Function should run in the VPC. Usually private or intra subnets."
-  type        = list(string)
-  default     = null
-}
-
-variable "vpc_security_group_ids" {
-  description = "List of security group ids when Lambda Function should run in the VPC."
   type        = list(string)
   default     = null
 }
@@ -469,12 +422,6 @@ variable "ignore_source_code_hash" {
   description = "Whether to ignore changes to the function's source code hash. Set to true if you manage infrastructure and code deployments separately."
   type        = bool
   default     = false
-}
-
-variable "local_existing_package" {
-  description = "The absolute path to an existing zip-file to use"
-  type        = string
-  default     = null
 }
 
 variable "s3_existing_package" {
