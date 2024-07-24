@@ -126,7 +126,7 @@ variable "resource_names_map" {
       max_length = 60
     }
     eventbridge_role = {
-      name       = "eb-role"
+      name       = "ebrole"
       max_length = 60
     }
   }
@@ -214,6 +214,12 @@ variable "vpc_id" {
   description = "The VPC ID of the VPC where infrastructure will be provisioned"
   type        = string
   default     = null
+}
+
+variable "create_security_group" {
+  description = "Set false if you do not want to create a security group (no VPC)"
+  type        = bool
+  default     = true
 }
 
 variable "create_package" {

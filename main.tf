@@ -92,7 +92,7 @@ module "resource_names" {
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.17.1"
-  count   = var.vpc_id != null ? 1 : 0
+  count   = var.create_security_group ? 1 : 0
 
   vpc_id                   = var.vpc_id
   name                     = module.resource_names["security_group"].standard
