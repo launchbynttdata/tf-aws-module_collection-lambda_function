@@ -63,3 +63,6 @@ azure_env.sh
 
 # VS Code
 .vscode/
+
+# Ignore builds directories in the examples directory
+examples/**/builds/

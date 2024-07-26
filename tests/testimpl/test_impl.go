@@ -22,6 +22,10 @@ func TestLambdaFunction(t *testing.T, ctx types.TestContext) {
 	if err != nil {
 		t.Errorf("Error getting function %s: %v", functionArn, err)
 	}
+
+	t.Run("TestIsFunctionActive", func(t *testing.T) {
+		require.Equal(t, "Active", string(output.Configuration.State), "Expected function to be active")
+	})
 }
 
 func GetAWSConfig(t *testing.T) (cfg aws.Config) {
