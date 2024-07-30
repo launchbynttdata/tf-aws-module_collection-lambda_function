@@ -10,9 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
-
 # Module to generate the AWS resource names
 module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
@@ -32,7 +29,7 @@ module "lambda_function" {
 
   # Local Source
   source_path            = var.create_package ? var.source_path : null
-  local_existing_package = var.zip_file_path != null && var.store_on_s3 == false ? "${var.zip_file_path}" : null
+  local_existing_package = var.zip_file_path != null && var.store_on_s3 == false ? var.zip_file_path : null
 
   # Store On S3
   s3_bucket = var.store_on_s3 ? var.s3_bucket : null
@@ -95,7 +92,7 @@ module "resource_names" {
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.17.1"
-  count   = var.vpc_id != null ? 1 : 0
+  count   = var.create_security_group ? 1 : 0
 
   vpc_id                   = var.vpc_id
   name                     = module.resource_names["security_group"].standard
@@ -201,7 +198,7 @@ module "dns_record" {
 
   zone_id = var.zone_id
   records = {
-    "${module.resource_names["function"].standard}" = {
+    (module.resource_names["function"].standard) = {
       name = module.resource_names["function"].standard
       type = "A"
       alias = {
@@ -226,6 +223,7 @@ module "acm" {
 
 module "eventbridge" {
   source     = "terraform-aws-modules/eventbridge/aws"
+  version    = "~> 3.7"
   count      = var.create_schedule ? 1 : 0
   create_bus = false
 
