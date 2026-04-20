@@ -1,4 +1,4 @@
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -44,4 +44,4 @@ No resources.
 | <a name="output_function_name"></a> [function\_name](#output\_function\_name) | n/a |
 | <a name="output_function_arn"></a> [function\_arn](#output\_function\_arn) | n/a |
 | <a name="output_function_url"></a> [function\_url](#output\_function\_url) | n/a |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
