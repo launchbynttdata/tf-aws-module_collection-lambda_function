@@ -28,10 +28,11 @@ module "lambda_function" {
   source = "../.."
 
   # Variables
-  create_package = var.create_package
-  source_path    = var.source_path
-  vpc_subnet_ids = module.vpc.private_subnets
-  vpc_id         = module.vpc.vpc_id
+  create_package          = var.create_package
+  ignore_source_code_hash = true
+  source_path             = var.source_path
+  vpc_subnet_ids          = module.vpc.private_subnets
+  vpc_id                  = module.vpc.vpc_id
 
   create_alb = false
   create_dns = false
